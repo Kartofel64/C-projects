@@ -1,6 +1,34 @@
 #include <stdio.h>
 #include <stdbool.h>
 
+void sort(int array[], int array_elements){
+    printf("\n\nTablica przed sortowaniem: ");
+    for (int i = 0; i < array_elements; i++){
+            printf("%d ", array[i]);
+        }
+    
+    int sorted_array[array_elements];
+    for (int i = 0; i < array_elements; i++){
+            sorted_array[i] = array[i];
+        }
+    int tmp = 0;
+
+    for (int i = 0; i < array_elements - 1; i++){
+        for (int j = 0; j < array_elements - 1 - i; j++){
+            if (sorted_array[j] > sorted_array[j+1]){
+                tmp = sorted_array[j+1];
+                sorted_array[j+1] = sorted_array[j];
+                sorted_array[j] = tmp;
+            }
+        }
+    }
+
+    printf("\n\nTablica po sortowaniu: ");
+    for (int i = 0; i < array_elements; i++){
+            printf("%d ", sorted_array[i]);
+        }
+}
+
 void array_stats(){
     int array_elements;
     printf("\nPodaj liczbe elementow tablicy: ");
@@ -14,8 +42,8 @@ void array_stats(){
             scanf("%d", &array[i]);
         }
 
-        int sum, min, max, odd, even;
-        float avg;
+        int sum = 0, min = 0, max = 0, odd = 0, even = 0;
+        float avg = 0;
 
         min = array[0];
         max = array[0];
@@ -28,19 +56,40 @@ void array_stats(){
             if (min > array[i]){
             min = array[i];
             }
+            if (array[i] % 2 == 0){
+                even++;
+            }else{
+                odd++;
+            }
         }
 
-        avg = sum / array_elements;
+        avg = (float)sum / array_elements;
+
+        printf("\n");
+
+        for (int i = 0; i < array_elements; i++){
+            printf("%d ", array[i]);
+        }
+
+        printf("\n");
+
+        printf("\nSuma: %d", sum);
+        printf("\nSrednia: %.2f", avg);
+        printf("\nMinimum: %d", min);
+        printf("\nMaksimum: %d", max);
+        printf("\nLiczba parzystych: %d", even);
+        printf("\nLiczba nieparzystych: %d", odd);
+
+        sort(array, array_elements);
     }
 }
-
 
 int main(){
     bool exit = false;
     int menu = 0;
     while (!exit)
     {
-        printf("\nJaki typ tablicy?\n\n");
+        printf("\n\nJaki typ tablicy?\n\n");
         printf("1. Jednowymiarowa\n");
         printf("2. Dwuwymiarowa\n");
         printf("3. Wyjscie\n\n");
