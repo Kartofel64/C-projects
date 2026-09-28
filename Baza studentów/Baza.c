@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
+#include <string.h>
 
 int id = 0;
 struct Student {
@@ -30,6 +31,50 @@ void show_students(){
     }
 }
 
+void find_student(){
+    char imie[30];
+    char nazwisko[30];
+    printf("\n\nPodaj Imie studenta do wyszukania: ");
+    scanf("%s", imie);
+    printf("\n\nPodaj Nazwisko studenta do wyszukania: ");
+    scanf("%s", nazwisko);
+
+    for (int i = 0; i < id; i++){
+        if (strcmp(imie, studenci[i].imie) == 0 && strcmp(nazwisko, studenci[i].nazwisko) == 0){
+            printf("\n\nZnaleziono studenta na pozycji %d", i+1);
+            printf("\n[%d] %s %s %d %.2f\n", i+1, studenci[i].imie, studenci[i].nazwisko, studenci[i].wiek, studenci[i].srednia);
+        }
+    }
+}
+
+void best_student(){
+    float max_avg = studenci[0].srednia;
+    int index = 0;
+    for (int i = 0; i < id; i++){
+        if (max_avg < studenci[i].srednia){
+            max_avg = studenci[i].srednia;
+            index = i;
+        }
+    }
+
+    printf("\nNajlepszy student to: [%d] %s %s %d %.2f\n", index+1, studenci[index].imie, studenci[index].nazwisko, studenci[index].wiek, studenci[index].srednia);
+}
+
+void all_students_avg(){
+    float avg = 0;
+    float sum = 0;
+    for (int i = 0; i < id; i++){
+        sum += studenci[i].srednia;
+    }
+    avg = sum / id;
+
+    printf("Srednia wszystkich studentow wynosi: %.2f", avg);
+}
+
+void sort_students(){
+
+}
+
 int main(){
     bool exit = false;
     int menu = 0;
@@ -57,16 +102,20 @@ int main(){
                 break;
             }
             case 3:{
-
+                find_student();
+                break;
             }
             case 4:{
-
+                best_student();
+                break;
             }
             case 5:{
-
+                all_students_avg();
+                break;
             }
             case 6:{
-
+                sort_students();
+                break;
             }
             case 7:{
 
