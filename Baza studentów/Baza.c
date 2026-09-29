@@ -72,7 +72,34 @@ void all_students_avg(){
 }
 
 void sort_students(){
+    for (int i = 0; i < id - 1; i++) {
+        for (int j = 0; j < id - 1 - i; j++) {
+            if (studenci[j].srednia < studenci[j + 1].srednia) {
+                struct Student temp = studenci[j];
+                studenci[j] = studenci[j + 1];
+                studenci[j + 1] = temp;
+            }
+        }
+    }
+}
 
+void remove_student(){
+    int number = 0;
+
+    printf("\n\nPodaj id studenta do usuniecia: ");
+    scanf("%d", &number);
+
+    for (int i = 0; i < id; i++) {
+        if (i + 1 == number) {
+            for (int j = i; j < id - 1; j++) {
+                studenci[j] = studenci[j + 1];
+            }
+            id--;
+            printf("\nUsunieto studenta.\n");
+            return;
+        }
+    }
+    printf("\nNie znaleziono studenta o takim id.\n");
 }
 
 int main(){
@@ -118,7 +145,8 @@ int main(){
                 break;
             }
             case 7:{
-
+                remove_student();
+                break;
             }
             case 0:{
                 exit = true;
